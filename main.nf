@@ -58,6 +58,9 @@ Channel
  * Step 1. Builds the genome index required by the mapping process
  */
 process buildIndex {
+
+    conda 'bioconda::bowtie2'
+
     tag "$genome.baseName"
     
     input:
@@ -75,6 +78,9 @@ process buildIndex {
  * Step 2. Maps each read-pair by using Tophat2 mapper tool
  */
 process mapping {
+
+    conda 'bioconda::tophat'
+    
     tag "$pair_id"
      
     input:
@@ -96,6 +102,9 @@ process mapping {
  * Step 3. Assembles the transcript by using the "cufflinks" tool
  */
 process makeTranscript {
+
+    conda 'bioconda::cufflinks'
+
     tag "$pair_id"
     publishDir params.outdir, mode: 'copy'  
        
